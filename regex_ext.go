@@ -17,6 +17,12 @@ func GetRexGroup(regStr string, str string) []RexGroup {
 	// 生成注册内容
 	reg := regexp.MustCompile(regStr)
 
+	return GetRexGroupByReg(reg, str)
+}
+
+// 通过已有正则表达式进行匹配
+func GetRexGroupByReg(reg *regexp.Regexp, str string) []RexGroup {
+
 	// 获取分组名称列表
 	subexpNames := reg.SubexpNames()
 	if len(subexpNames) == 0 {
