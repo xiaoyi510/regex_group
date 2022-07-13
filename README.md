@@ -5,7 +5,7 @@ Golang 简单使用正则分组命名
 ### 使用方式
 
 ```shell
-go get -u github.com/antlabs/strsim
+go get -u github.com/xiaoyi510/regex_group
 ```
 
 ### 调用示例
