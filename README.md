@@ -2,7 +2,13 @@
 
 Golang 简单使用正则分组命名
 
-调用示例
+### 使用方式
+
+```shell
+go get -u github.com/antlabs/strsim
+```
+
+### 调用示例
 
 ```go
 str := `XArr v1.2 家庭媒体管理中心
@@ -13,7 +19,7 @@ marshal, _ := json.MarshalIndent(ret, "", "  ")
 log.Println(string(marshal))
 ```
 
-打印结果
+### 打印结果
 
 ```json
 [
