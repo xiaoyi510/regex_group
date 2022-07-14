@@ -6,22 +6,38 @@ import (
 )
 
 type RexGroup map[string]RexGroupItem
+
 type RexGroupItem struct {
 	SubMatch string `json:"sub_match"`
 	Offset   int    `json:"offset"`
 	Size     int    `json:"size"`
 }
 
-// GetRexGroup 获取正则表达式分组内容
-func GetRexGroup(regStr string, str string) []RexGroup {
+func (this RexGroup) Get(key string) *RexGroupItem {
+	v, ok := this[key]
+	if ok {
+		return &v
+	}
+	return nil
+}
+func (this RexGroup) GetString(key string) string {
+	v, ok := this[key]
+	if ok {
+		return v.SubMatch
+	}
+	return ""
+}
+
+// GetRegxGroup 获取正则表达式分组内容
+func GetRegxGroup(regStr string, str string) []RexGroup {
 	// 生成注册内容
 	reg := regexp.MustCompile(regStr)
 
-	return GetRexGroupByReg(reg, str)
+	return GetRegxGroupByReg(reg, str)
 }
 
 // 通过已有正则表达式进行匹配
-func GetRexGroupByReg(reg *regexp.Regexp, str string) []RexGroup {
+func GetRegxGroupByReg(reg *regexp.Regexp, str string) []RexGroup {
 
 	// 获取分组名称列表
 	subexpNames := reg.SubexpNames()
@@ -62,4 +78,25 @@ func GetRexGroupByReg(reg *regexp.Regexp, str string) []RexGroup {
 	}
 
 	return ret
+}
+
+// 获取单个匹配规则
+func GetRegxGroupByRegOne(reg *regexp.Regexp, str string) RexGroup {
+	arr := GetRegxGroupByReg(reg, str)
+	if len(arr) > 0 {
+		return arr[0]
+	}
+	return nil
+}
+
+// 获取单个匹配规则
+func GetRegxGroupOne(regStr, str string) RexGroup {
+	// 生成注册内容
+	reg := regexp.MustCompile(regStr)
+
+	arr := GetRegxGroupByReg(reg, str)
+	if len(arr) > 0 {
+		return arr[0]
+	}
+	return nil
 }
